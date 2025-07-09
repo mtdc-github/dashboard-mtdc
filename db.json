@@ -1,0 +1,15 @@
+ {
+  "dashboard": {
+    "occupancyRate": 22.5,
+    "occupancyDetails": "40 of 53 rooms operational",
+    "totalIncomeToday": 28582,
+    "totalIncomeDetails": "Accommodation + Extra Beds",
+    "previousYearIncome": 28582,
+    "previousYearIncomeDetails": "Accommodation + Extra Beds",
+    "guestArrivals": 9,
+    "guestArrivalsDetails": "7 Online, 2 Walk-ins, 0 No-shows",
+    "totalCollection": 7010,
+    "totalCollectionDetails": "Including Food & Beverage Sales"
+  }
+}
+      

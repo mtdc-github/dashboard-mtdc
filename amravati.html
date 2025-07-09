@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Amravati Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      input,
+      button {
+        margin: 5px;
+        padding: 8px;
+      }
+      button {
+        cursor: pointer;
+      }
+      #message {
+        color: green;
+        margin-top: 10px;
+      }
+      #error {
+        color: red;
+        margin-top: 10px;
+      }
+
+      .progress-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        align-items: center;
+      }
+
+      .progress-label {
+        margin-left: 10px;
+      }
+      svg.progress-circle {
+        width: 80px;
+        height: 80px;
+      }
+      circle.progress-circle-bg {
+        fill: none;
+        stroke: #ddd;
+        stroke-width: 8;
+      }
+      circle.progress-circle-fill {
+        fill: none;
+        stroke: #4caf50;
+        stroke-width: 8;
+        stroke-linecap: round;
+        stroke-dasharray: 226;
+        stroke-dashoffset: 226;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+      }
+      #dataForm {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Amravati Region Dashboard</h1>
+    <iframe
+      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS3EBmxwWVKrVN_X19qe2czehdREJlS2FSOs_AmtFDbq7cE1VbbaaimDaDYWDWxFDsnUfUNoZteXDxj/pubhtml?widget=true&amp;headers=false"
+      width="100%"
+      height="400"
+      frameborder="0"
+    >
+    </iframe>
+    <h5>MTDC RESERVATION INPUTS</h5>
+    <form id="dataForm">
+      <fieldset>
+        <legend>Sales & Expenses</legend>
+        <input type="number" name="sales" placeholder="Sales" required /><br />
+        <input
+          type="number"
+          name="expenses"
+          placeholder="Expenses"
+          required
+        /><br />
+        <input
+          type="number"
+          name="income"
+          placeholder="Income"
+          required
+        /><br />
+      </fieldset>
+      <fieldset>
+        <legend>Bookings & Rooms</legend>
+        <input
+          type="number"
+          name="onlineBooking"
+          placeholder="Online Booking"
+          required
+        /><br />
+        <input
+          type="number"
+          name="walkin"
+          placeholder="Walk-in"
+          required
+        /><br />
+        <input
+          type="number"
+          name="operationalRooms"
+          placeholder="Operational Rooms"
+          required
+        /><br />
+        <input
+          type="number"
+          name="totalRooms"
+          placeholder="Total Rooms"
+          required
+        /><br />
+        <input
+          type="number"
+          name="occupancyRate"
+          placeholder="Occupancy Rate"
+          required
+        /><br />
+      </fieldset>
+      <fieldset>
+        <legend>Income & Arrivals</legend>
+        <input
+          type="number"
+          name="incomeToday"
+          placeholder="Income Today"
+          required
+        /><br />
+        <input
+          type="number"
+          name="previousYearIncome"
+          placeholder="Previous Year Income"
+          required
+        /><br />
+        <input
+          type="number"
+          name="guestArrivals"
+          placeholder="Guest Arrivals"
+          required
+        /><br />
+        <input
+          type="number"
+          name="onlineArrivals"
+          placeholder="Online Arrivals"
+          required
+        /><br />
+        <input
+          type="number"
+          name="walkIns"
+          placeholder="Walk-ins"
+          required
+        /><br />
+        <input
+          type="number"
+          name="cashpayment"
+          placeholder="Cash Payment"
+          required
+        /><br />
+        <input
+          type="number"
+          name="noShows"
+          placeholder="No Shows"
+          required
+        /><br />
+      </fieldset>
+      <fieldset>
+        <legend>Collections</legend>
+        <input
+          type="number"
+          name="resortCollection"
+          placeholder="Resort Collection"
+          required
+        /><br />
+        <input
+          type="number"
+          name="restaurantCollection"
+          placeholder="Restaurant Collection"
+          required
+        /><br />
+      </fieldset>
+      <button type="submit">Save Data to Database</button>
+    </form>
+    <div id="message"></div>
+    <div id="error"></div>
+
+    <!-- Example: Sales Progress Card -->
+    <div class="progress-container">
+      <svg class="progress-circle" viewBox="0 0 80 80">
+        <circle class="progress-circle-bg" cx="40" cy="40" r="36"></circle>
+        <circle
+          class="progress-circle-fill"
+          cx="40"
+          cy="40"
+          r="36"
+          id="salesProgressBar"
+        ></circle>
+      </svg>
+      <div class="progress-label">
+        <div>Sales Progress: <span id="salesPercentageText">0%</span></div>
+        <div><small>(Enter value in Sales input to update)</small></div>
+      </div>
+    </div>
+    <!-- Income progress card -->
+    <div class="progress-container">
+      <svg class="progress-circle" viewBox="0 0 80 80">
+        <circle class="progress-circle-bg" cx="40" cy="40" r="36"></circle>
+        <circle
+          class="progress-circle-fill"
+          cx="40"
+          cy="40"
+          r="36"
+          id="incomeProgressBar"
+        ></circle>
+      </svg>
+      <div class="progress-label">
+        <div>Income Progress: <span id="incomePercentageText">0%</span></div>
+        <div><small>(Enter value in Income input to update)</small></div>
+      </div>
+    </div>
+    <!-- Expenses Progress card -->
+
+    <div class="progress-container">
+      <svg class="progress-circle" viewBox="0 0 80 80">
+        <circle class="progress-circle-bg" cx="40" cy="40" r="36"></circle>
+        <circle
+          class="progress-circle-fill"
+          cx="40"
+          cy="40"
+          r="36"
+          id="expensesProgressBar"
+        ></circle>
+      </svg>
+      <div class="progress-label">
+        <div>
+          Expenses Progress: <span id="expensesPercentageText">0%</span>
+        </div>
+        <div><small>(Enter value in Expenses input to update)</small></div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("dataForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const data = {};
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
+          console.log("Data being sent:", data);
+
+          try {
+            const response = await fetch("http://localhost:3000/save-data", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            if (result.error) {
+              document.getElementById("error").textContent = result.error;
+              document.getElementById("message").textContent = "";
+            } else {
+              document.getElementById("message").textContent = result.message;
+              document.getElementById("error").textContent = "";
+            }
+          } catch (error) {
+            document.getElementById("error").textContent =
+              "Failed to send data: " + error.message;
+            document.getElementById("message").textContent = "";
+          }
+        });
+
+      // Progress bar update (example for Sales)
+      document
+        .querySelector('[name="sales"]')
+        .addEventListener("input", function () {
+          const value = Number(this.value) || 0;
+          const maxValue = 5000000; // Adjust as needed
+          const percentage = Math.min(
+            Math.round((value / maxValue) * 100),
+            100
+          );
+          document.getElementById("salesPercentageText").textContent =
+            percentage + "%";
+          const circumference = 2 * Math.PI * 36;
+          const offset = circumference - (percentage / 100) * circumference;
+          document.getElementById("salesProgressBar").style.strokeDashoffset =
+            offset;
+        });
+      // Progress bar update for income
+      document
+        .querySelector('[name="income"]')
+        .addEventListener("input", function () {
+          const value = Number(this.value) || 0;
+          const maxValue = 5000000; // Adjust as needed
+          const percentage = Math.min(
+            Math.round((value / maxValue) * 100),
+            100
+          );
+          document.getElementById("incomePercentageText").textContent =
+            percentage + "%";
+          const circumference = 2 * Math.PI * 36;
+          const offset = circumference - (percentage / 100) * circumference;
+          document.getElementById("incomeProgressBar").style.strokeDashoffset =
+            offset;
+        });
+
+      // Progress bar update for expenses
+      document
+        .querySelector('[name="expenses"]')
+        .addEventListener("input", function () {
+          const value = Number(this.value) || 0;
+          const maxValue = 5000000; // Adjust as needed
+          const percentage = Math.min(
+            Math.round((value / maxValue) * 100),
+            100
+          );
+          document.getElementById("expensesPercentageText").textContent =
+            percentage + "%";
+          const circumference = 2 * Math.PI * 36;
+          const offset = circumference - (percentage / 100) * circumference;
+          document.getElementById(
+            "expensesProgressBar"
+          ).style.strokeDashoffset = offset;
+        });
+    </script>
+  </body>
+</html>

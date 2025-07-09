@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feedback Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Feedback Form</h1>
+
+  <form id="feedbackForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Your name" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Your email" required />
+
+    <label for="feedback">Feedback:</label>
+    <textarea id="feedback" placeholder="Your feedback" required></textarea>
+
+    <button type="submit">Send Feedback</button>
+  </form>
+
+  <script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = encodeURIComponent(document.getElementById('name').value.trim());
+      const email = encodeURIComponent(document.getElementById('email').value.trim());
+      const feedback = encodeURIComponent(document.getElementById('feedback').value.trim());
+
+      const subject = `Feedback from ${name}`;
+      const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AFeedback:%0D%0A${feedback}`;
+
+      const mailtoLink = `mailto:your-email@example.com?subject=${subject}&body=${body}`;
+
+      window.location.href = mailtoLink;
+    });
+  </script>
+
+</body>
+</html>
